@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css_link %}
+<!-- <link rel="stylesheet" href="{% static 'users/main.css' %}"> -->
+<style>
+    .login{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        color: #969696;
+        
+    }
+    .login-body{
+        background-color: white;
+    }
+    body{
+        background-color: #F0EFF4;
+    }
+    .loginBtn, .loginBtn:active,
+.loginBtn:visited,
+.loginBtn:focus {
+        background-color: #969696;
+        border: #969696;
+        color: white;
+    }
+    .loginBtn:hover{
+        background-color: #7f7e7e;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-5 login-body pl-4 pr-4 pb-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom pt-4 pb-4 text-center" style="color: black;">Sign In</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn w-100 loginBtn" type="submit">Log in</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Don't Have An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

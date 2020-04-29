@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css_link %}
+
+{% endblock %}
+
+{% block content %}
+<!-- <div class="content-section">
+        <div class="media">
+            <div class="col-md-2 px-0">
+                <img src="{{ user.profile.image.url }}" class="img-fluid rounded-circle">
+            </div>
+            <div class="media-body align-middle">
+                <h2 class="mt-0">{{user.username}}</h2>
+                <p class="text-secondary">{{user.email}}</p>
+            </div>    
+        </div>
+    </div> -->
+<div class="container mt-4">
+    <div class="card">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-md-2 px-4 py-4">
+                <img src="{{ user.profile.image.url }}" class="img-fluid rounded-circle mx-auto d-block" alt="">
+            </div>
+            <div class="col">
+                <div class="card-body px-4 text-center">
+                    <h2 class="card-title mb-0">{{user.username}}</h2>
+                    <p class="card-text pt-0">{{user.email}}</p>
+                </div>
+            </div>
+
+        <div class="card-footer w-100 text-muted">
+            Say something about yourself
+        </div>
+    </div>
+</div>
+
+<form class="py-5" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Edit Account</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update Profile</button>
+    </div>
+</form>
+</div>
+{% endblock content %}

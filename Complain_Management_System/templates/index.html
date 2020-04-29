@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_link %}
+<style>
+    .empty_message {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        color: #969696;
+
+    }
+
+    .complaint-body {
+        background-color: white;
+        border-radius: .75rem;
+        box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+    }
+
+    body {
+        background-color: #EFEFEF;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if user.profile.is_employee %}
+<div class="container-fluid pt-3 pb-3" style="background-color: #381F73; color: white;">
+    <div class="row">
+        <div class="col-lg-2 col-sm-12 col-md-2"><img src="{{ user.profile.image.url }}"
+                class="img-fluid rounded-circle mx-auto d-block" alt="" style="width:130px;height:130px;"></div>
+        <div class="col p-3">
+            {% if user.first_name == "" %}
+            <h1><strong>{{user.username}}</strong></h1>
+            {% else %}
+            <h1><strong>{{user.first_name}} {{user.last_name}}</strong></h1>
+            {% endif %}
+            <h5>Employee</h5>
+        </div>
+    </div>
+</div><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2><strong>Complaints assigned to you</strong></h2>
+        </div>
+    </div>
+</div><br><br>
+{% else %}
+<div class="container-fluid pt-3 pb-3" style="background-color: #381F73; color: white;">
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-sm-12 col-md-2"><img src="{{ user.profile.image.url }}"
+                class="img-fluid rounded-circle mx-auto d-block" alt="" style="width:130px;height:130px;"></div>
+        <div class="col pt-3">
+            {% if user.first_name == "" %}
+            <h1><strong>{{user.username}}</strong></h1>
+            {% else %}
+            <h1><strong>{{user.first_name}} {{user.last_name}}</strong></h1>
+            {% endif %}
+            <h5>User</h5>
+        </div>
+    </div>
+</div><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2><strong>Your complaints history</strong></h2>
+        </div>
+    </div>
+</div><br><br>
+{% endif %}
+
+{% if complaint_exists %}
+{% for complaint in complaints %}
+<div class="container">
+    <div class="row">
+        <div class="col complaint-body p-3">
+            <div class="row">
+                <div class="col-10"><a href="{% url 'complaint-detail' complaint.id %}" style="color: black;">
+                        <h3>{{complaint.title}}</h3>
+                    </a></div>
+                {% if user.profile.is_employee is not True %}
+                <div class="col-2">
+                    <ul class="list-inline m-0 float-right">
+                        <li class="list-inline-item">
+                            <a href="{% url 'complaint-update' complaint.id %}" class="btn btn-success btn-sm rounded-0"
+                                title="Edit"><i class="fa fa-edit"></i></a>
+                            <!-- <button  type="button" data-toggle="tooltip" data-placement="top" ></button> -->
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{% url 'complaint-delete' complaint.id %}" class="btn btn-danger btn-sm rounded-0"
+                                title="Delete"><i class="fa fa-trash"></i></a>
+                            <!-- <button  type="button" data-toggle="tooltip" data-placement="top" ></button> -->
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <p style="font-size: 14px;">{{complaint.details|truncatewords:50}}</p>
+            <div>
+                <span class="badge badge-success">Posted {{complaint.date_posted|date:"F d, Y"}}</span>
+                <div class="float-right">
+                    <span class="badge  badge-dark">Status</span>
+                    {% if complaint.status == 1 %}
+                    <span class="badge badge-warning">Pending</span>
+                    {% else %}
+                    <span class="badge badge-success">Solved</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+<nav class="Page navigation example">
+    {% if page_obj.paginator.num_pages > 1 %}
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+        </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+
+        {% if page_obj.number == num %}
+        <li class="page-item"><a href="?page={{ num }}" class="page-link"
+                style="background-color: #E9ECEF;">{{ num }}</a></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a href="?page={{page_obj.next_page_number}}" class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+        {% endif %}
+
+
+    </ul>
+    {% endif %}
+</nav>
+
+
+
+{% else %}
+<div class="empty_message text-center">
+    <h1 class="text-muted">You've got nothing to show</h1>
+</div>
+{% endif %}
+<!-- <div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h1>Revolution has begun!</h1>
+            <p>'I am bound to Tahiti for more men.'
+                'Very good. Let me board you a moment—I come in peace.' With that he leaped from the canoe, swam to the
+                boat; and climbing the gunwale, stood face to face with the captain.
+                'Cross your arms, sir; throw back your head. Now, repeat after me. As soon as Steelkilt leaves me, I
+                swear to beach this boat on yonder island, and remain there six days. If I do not, may lightning strike
+                me!'A pretty scholar,' laughed the Lakeman. 'Adios, Senor!' and leaping into the sea, he swam back to
+                his comrades.</p>
+            <div>
+                <span class="badge badge-success">Posted 2012-08-02 20:47:04</span>
+                <div class="float-right"><span class="label">alice</span> <span class="label">story</span> <span
+                        class="label">blog</span> <span class="label">personal</span></div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div> -->
+{% endblock content %}

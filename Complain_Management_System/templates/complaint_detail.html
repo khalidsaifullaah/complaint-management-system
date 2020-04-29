@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css_link %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="complaint-details">
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <!-- Post Content Column -->
+            <div class="col-8">
+
+                <!-- Title -->
+                <h1 class="mt-4">{{complaint.title}}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by
+                    <a href="{% url 'profile' %}">{{complaint.user_id}}</a>
+                </p>
+                <span class="badge  badge-dark">Status</span>
+                {% if complaint.status == 1 %}
+                <span class="badge badge-warning">Pending</span>
+                {% else %}
+                <span class="badge badge-success">Solved</span>
+                {% endif %}<br><br>
+                <hr style="width: 100%;">
+
+                <!-- Date/Time -->
+                <p>{{complaint.date_posted}}</p>
+
+                <hr style="width: 100%;"><br>
+
+                <!-- Post Content -->
+                <p class="lead"><mark>{{complaint.details}}</mark></p>
+
+
+
+                {% if request.user.profile.is_employee %}
+                <form action="{% url 'status-change' complaint.id %}" method="Post">
+                    {% csrf_token %}
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="submit" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Change status
+                        </button>
+                        <div class="dropdown-menu" style="background-color: #f8f9fa;">
+                            <button type="submit" class="btn btn-light w-100" name="Solved">Solved</button>
+                            <hr class="w-100">
+                            <button type="submit" class="btn btn-light w-100" name="Pending">Pending</button>
+
+                        </div>
+                    </div>
+                </form><br>
+                {% endif %}
+                <hr style="width: 100%;">
+                <!-- Comments Form -->
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a feedback:</h5>
+                    <div class="card-body">
+                        <form method="Post">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                {{feedback_form|crispy}}
+                            </div>
+                            <input class="btn btn-primary" type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Single Comment -->
+                {% for feedback in feedbacks %}
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="{{ feedback.user.profile.image.url }}" alt=""
+                        style="width:60px;height:60px;">
+                    <div class="media-body">
+                        <h5 class="mt-0"><strong>{{feedback.user}}</strong></h5>
+                        <span class="text-muted"><em>{{feedback.content}}</em></span>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

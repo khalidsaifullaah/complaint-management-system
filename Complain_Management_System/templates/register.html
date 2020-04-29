@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css_link %}
+<style>
+        /* .register{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        color: #969696;
+        
+    } */
+    .register-body{
+        background-color: white;
+    }
+    body{
+        background-color: #F0EFF4;
+    }
+    .registerBtn, .registerBtn:active,
+.registerBtn:visited,
+.registerBtn:focus {
+        background-color: #969696;
+        border: #969696;
+        color: white;
+    }
+    .registerBtn:hover{
+        background-color: #7f7e7e;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register">
+    <div class="heading pt-4 pb-4 text-center">
+        <h3>Create your account</h3>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-5 register-body pl-4 pr-4 pb-4">
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn w-100 registerBtn" type="submit">Sign Up</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                    </small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

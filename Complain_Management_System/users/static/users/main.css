@@ -1,0 +1,139 @@
+body,html{
+    height: 100%;
+  }
+
+.bgimg{
+    /* background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/c6054a83510659.5d3f06978f250.jpg');   another way '/static/users/1.jpg' */
+    background-image: url('/static/users/3.jpg');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+
+}
+
+/* @keyframes slideBG{
+    0% {
+        background-image: url('/static/users/1.jpg');
+    }
+    40% {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/84cabc83510659.5d3f06978b95d.jpg');
+    }
+    40.01% {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/6b97b183510659.5d3f06978aedd.jpg');
+    }
+    80% {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/72f30e83510659.5d3f06978e658.jpg');
+    }
+    80.01% {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/46260f83510659.5d3f06978dab1.jpg');
+    }
+    100% {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a0000a83070851.5d30b24120a09.jpg');
+    }
+} */
+.cs{
+    font-size: 120px;
+}
+
+.cs2{
+    letter-spacing: 10px;
+    font-family: 'Inconsolata', monospace;
+}
+
+.topleft {
+    position: absolute;
+    top: 0;
+    animation: slideBG 2s;
+}
+
+/* .logo{
+    font-size: 40px;
+    font-family: 'Anton', sans-serif;
+    
+} */
+.anchor{
+    text-decoration: none !important;
+    font-family: 'Anton', sans-serif;
+    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    
+}
+.navLogo{
+    font-weight: bold;
+    background: linear-gradient(330deg, #e05252 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #e05252 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.anchor:hover{
+    text-decoration: none !important;
+    color: azure;
+    
+}
+#demo{
+    font-family: 'Inconsolata', monospace;
+    font-size: 70px;
+}
+.bottomleft {
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+hr {
+    margin: auto;
+    width: 40%;
+}
+
+/* @import url(https://fonts.googleapis.com/css?family=Righteous);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  }
+.logo {
+  display: inline-block;
+  color: white;
+  font-family: 'Righteous', serif;
+  font-size: 40px; 
+  text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+  }
+  .logo:after {
+    content: attr(data-shadow);
+    position: absolute;
+    top: .06em; left: .06em;
+    z-index: -1;
+    text-shadow: none;
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 5%,
+            hsla(59,40%,40%,1) 45%,
+            hsla(48,20%,90%,1) 55%,
+            transparent 0
+            );
+    background-size: .05em .05em;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    animation: shad-anim 15s linear infinite;
+    }
+
+@keyframes shad-anim {
+  0% {background-position: 0 0}
+  0% {background-position: 100% -100%}
+  } */
