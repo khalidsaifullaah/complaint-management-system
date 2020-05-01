@@ -33,4 +33,4 @@ class Feedback(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return '{}-{}'.format(self.post.title, str(self.user.username))
+        return '{}-{}'.format(self.complaint.title, str(self.user.username))
