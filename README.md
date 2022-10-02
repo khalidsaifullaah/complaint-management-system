@@ -7,8 +7,8 @@
 
 2. Create and active virtual environment using  <br>
 ` virtualenv -p python3 env` <br>
-` cd venv` <br>
-`source bin/activate` <br>
+` cd env/Scripts` <br>
+`activate.bat` <br>
 3. Change the directory using <br>
 `cd ..` <br>
 ` cd Complain_Management_System`<br>
